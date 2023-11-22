@@ -76,6 +76,7 @@ void registerQTR1APins(uint8_t p_pinQTR1AL, uint8_t p_pinQTR1AR)
 
 void updateQTR1A()
 {
+    Serial.printf("[%s] Updating QTR-1A sensor values\n", getTimestamp());
     qtr1A.read(sensorValues1A);
 }
 

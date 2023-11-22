@@ -70,10 +70,10 @@ void setup()
     registerBuzzerPins(PIN_BUZZER);
     registerLEncoderPins(PIN_ENCODER_A_A, PIN_ENCODER_A_B);
     registerREncoderPins(PIN_ENCODER_B_A, PIN_ENCODER_B_B);
-    registerQTR1APins(QTR1A_A, QTR1A_B);
+    // registerQTR1APins(QTR1A_A, QTR1A_B);
 
-        // Play sound to indicate setup is over
-        Serial.printf("[SETUP %s] Playing SETUP-OVER sound\n", getTimestamp());
+    // Play sound to indicate setup is over
+    Serial.printf("[SETUP %s] Playing SETUP-OVER sound\n", getTimestamp());
     playTone(500, 250);
     playTone(750, 250);
     playTone(500, 250);
@@ -98,6 +98,7 @@ void setup()
 
 }
 
+// test vars
 int state = 0;
 int lastt = 0;
 int pwm = 50;
@@ -105,25 +106,26 @@ int pwm = 50;
 void loop()
 {
     
-    // // Encoder testing
-    // Serial.printf("[%s] L:%d | R: %d\n", getTimestamp(), getCountLEncoder(), getCountREncoder());
+    // Encoder testing
+    Serial.printf("[%s] L:%lld | R: %lld\n", getTimestamp(), getCountLEncoder(), getCountREncoder());
 
-    // if (millis() - lastt > 1000)
-    // {
-    //     Serial.printf("[%s] Incrementing PWM (%d -> %d)\n", getTimestamp(), pwm, pwm+1);
-    //     pwm = min(255, pwm+1);
-    //     setPWMLMotor(pwm);
-    //     setPWMRMotor(pwm);
+    if (millis() - lastt > 1000)
+    {
+        Serial.printf("[%s] Incrementing PWM (%d -> %d)\n", getTimestamp(), pwm, pwm+1);
+        pwm = min(255, pwm+1);
+        setPWMLMotor(pwm);
+        setPWMRMotor(pwm);
         
-    //     if (pwm % 10 == 0) {
-    //         playTone(750, 250);
-    //         Serial.printf("[%s] Reversing motors (%d -> %d)\n", getTimestamp(), getRMotorDirection(), -getRMotorDirection());
-    //         reverseLMotor();
-    //         reverseRMotor();
-    //     }
+        if (pwm % 10 == 0) {
+            playTone(750, 250);
+            delay(250);
+            Serial.printf("[%s] Reversing motors (%d -> %d)\n", getTimestamp(), getRMotorDirection(), -getRMotorDirection());
+            reverseLMotor();
+            reverseRMotor();
+        }
 
-    //     lastt = millis();
-    // }
+        lastt = millis();
+    }
 
     // QTR 1A testing
     updateQTR1A();

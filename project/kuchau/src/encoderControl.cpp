@@ -12,24 +12,27 @@ uint8_t pinEncoderRB;
 ESP32Encoder encoderL;
 ESP32Encoder encoderR;
 
-void registerLEncoderPins(uint8_t pinA, uint8_t pinB)
+
+void registerLEncoderPins(uint8_t pinLA, uint8_t pinLB)
 {
     Serial.printf("[%s] Registering L Encoder Pins\n", getTimestamp());
-    Serial.printf("[%s] L Encoder A (C1): %d\n", getTimestamp(), pinA);
-    Serial.printf("[%s] L Encoder B (C2): %d\n", getTimestamp(), pinB);
-    pinEncoderLA = pinA;
-    pinEncoderLB = pinB;
+    Serial.printf("[%s] L Encoder A (C1): %d\n", getTimestamp(), pinLA);
+    Serial.printf("[%s] L Encoder B (C2): %d\n", getTimestamp(), pinLB);
+    pinEncoderLA = pinLA;
+    pinEncoderLB = pinLB;
     encoderL.attachHalfQuad(pinEncoderLA, pinEncoderLB);
+    ESP32Encoder::useInternalWeakPullResistors = UP;
 }
 
-void registerREncoderPins(uint8_t pinA, uint8_t pinB)
+void registerREncoderPins(uint8_t pinRA, uint8_t pinRB)
 {
     Serial.printf("[%s] Registering R Encoder Pins\n", getTimestamp());
-    Serial.printf("[%s] R Encoder A (C1): %d\n", getTimestamp(), pinA);
-    Serial.printf("[%s] R Encoder B (C2): %d\n", getTimestamp(), pinB);
-    pinEncoderRA = pinA;
-    pinEncoderRB = pinB;
+    Serial.printf("[%s] R Encoder A (C1): %d\n", getTimestamp(), pinRA);
+    Serial.printf("[%s] R Encoder B (C2): %d\n", getTimestamp(), pinRB);
+    pinEncoderRA = pinRA;
+    pinEncoderRB = pinRB;
     encoderR.attachHalfQuad(pinEncoderRA, pinEncoderRB);
+    ESP32Encoder::useInternalWeakPullResistors = UP;
 }
 
 int64_t getCountLEncoder()
